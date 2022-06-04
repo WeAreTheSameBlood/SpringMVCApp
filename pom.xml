@@ -72,6 +72,11 @@
       <version>6.1.6.Final</version>
     </dependency>
 
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>42.3.6</version>
+    </dependency>
 
   </dependencies>
 
@@ -111,14 +116,22 @@
       </plugins>
     </pluginManagement>
       <plugins>
-          <plugin>
-              <groupId>org.apache.maven.plugins</groupId>
-              <artifactId>maven-compiler-plugin</artifactId>
-              <configuration>
-                  <source>14</source>
-                  <target>14</target>
-              </configuration>
-          </plugin>
+<!--          <plugin>-->
+<!--              <groupId>org.apache.maven.plugins</groupId>-->
+<!--              <artifactId>maven-compiler-plugin</artifactId>-->
+<!--              <configuration>-->
+<!--                  <source>14</source>-->
+<!--                  <target>14</target>-->
+<!--              </configuration>-->
+<!--          </plugin>-->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <configuration>
+            <source>8</source>
+            <target>8</target>
+          </configuration>
+        </plugin>
       </plugins>
   </build>
 </project>
