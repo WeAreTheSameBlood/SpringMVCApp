@@ -30,40 +30,16 @@ public class PersonDAO {
     }
 
     public void save(Person person) {
-        String SQL = "INSERT INTO Person VALUES (1, ?, ?, ?)";
-        try {
-            PreparedStatement prSt = connection.prepareStatement(SQL);
-            prSt.setString(1, person.getName());
-            prSt.setInt(2, person.getAge());
-            prSt.setString(3, person.getEmail());
-            prSt.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        jdbcTemplate.update("INSERT INTO Person VALUES (1, ?, ?, ?)",
+                person.getName(), person.getAge(), person.getEmail());
     }
 
     public void update(int id, Person updatedPerson) {
-        try {
-            PreparedStatement prSt =
-                    connection.prepareStatement("UPDATE Person SET name =?, age=?, email=? WHERE  id=?");
-            prSt.setString(1, updatedPerson.getName());
-            prSt.setInt(2, updatedPerson.getAge());
-            prSt.setString(3, updatedPerson.getEmail());
-            prSt.setInt(4, id);
-            prSt.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        jdbcTemplate.update("UPDATE Person SET name=?, age=?, email=? WHERE id=?",
+                updatedPerson.getName(), updatedPerson.getAge(), updatedPerson.getEmail(), id);
     }
 
     public void delete(int id) {
-        try {
-            PreparedStatement prSt =
-                    connection.prepareStatement("DELETE FROM Person WHERE id=?");
-            prSt.setInt(1, id);
-            prSt.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        jdbcTemplate.update("DELETE FROM Person WHERE id=?", id);
     }
 }
