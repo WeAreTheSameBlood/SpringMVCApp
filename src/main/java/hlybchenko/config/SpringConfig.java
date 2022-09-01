@@ -9,6 +9,9 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.orm.hibernate5.HibernateTransactionManager;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
@@ -23,17 +26,16 @@ import java.util.Properties;
 
 @Configuration
 @ComponentScan("hlybchenko")
-@EnableWebMvc
 @PropertySource("classpath:hibernate.properties")
 @EnableTransactionManagement
+@EnableWebMvc
 public class SpringConfig implements WebMvcConfigurer {
 
     private final ApplicationContext applicationContext;
     private final Environment environment;
 
     @Autowired
-    /*
-     С помощью этого бина можем получить доступ к свойствам,
+    /* С помощью этого бина можем получить доступ к свойствам,
      которые подгрузились в приложение
      */
     public SpringConfig(ApplicationContext applicationContext, Environment environment) {
@@ -87,10 +89,18 @@ public class SpringConfig implements WebMvcConfigurer {
     }
 
     @Bean
-    public LocalSessionFactoryBean sessionFactory(){
+    public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-        sessionFactory;
-
+        sessionFactory.setDataSource(dataSource());
+        sessionFactory.setPackagesToScan("hlybchenko/models");
+        sessionFactory.setHibernateProperties(hibernateProperties());
         return sessionFactory;
+    }
+
+    @Bean
+    public PlatformTransactionManager hibernateTransactionManager() {
+        HibernateTransactionManager transactionManager = new HibernateTransactionManager();
+        transactionManager.setSessionFactory(sessionFactory().getObject());
+        return transactionManager;
     }
 }
