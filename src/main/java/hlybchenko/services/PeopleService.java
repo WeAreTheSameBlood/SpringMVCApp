@@ -12,6 +12,7 @@ import java.util.Optional;
 @Service
 @Transactional(readOnly = true)
 public class PeopleService {
+
     private final PeopleRepository peopleRepository;
 
     @Autowired

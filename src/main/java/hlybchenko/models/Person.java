@@ -1,5 +1,9 @@
 package hlybchenko.models;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
@@ -7,7 +11,11 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "Person")
+@NoArgsConstructor
+@Getter
+@Setter
 public class Person {
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,34 +30,10 @@ public class Person {
     @Column(name = "age")
     private int age;
 
+    private String email;
+
     public Person(String name, int age) {
         this.name = name;
-        this.age = age;
-    }
-
-    public Person() { }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
         this.age = age;
     }
 }

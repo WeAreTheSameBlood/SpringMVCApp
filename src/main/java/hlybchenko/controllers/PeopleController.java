@@ -13,6 +13,7 @@ import javax.validation.Valid;
 @Controller
 @RequestMapping("/people")
 public class PeopleController {
+
     private final PeopleService peopleService;
     @Autowired
     public PeopleController(PeopleService peopleService) {

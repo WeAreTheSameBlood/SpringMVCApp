@@ -37,9 +37,9 @@ public class SpringConfig implements WebMvcConfigurer {
     private final Environment environment;
 
     @Autowired
-    /* С помощью этого бина можем получить доступ к свойствам,
-     которые подгрузились в приложение
-
+    /**
+     * С помощью этого бина можем получить доступ к свойствам,
+     * которые подгрузились в приложение
      */
     public SpringConfig(ApplicationContext applicationContext, Environment environment) {
         this.applicationContext = applicationContext;
@@ -71,7 +71,8 @@ public class SpringConfig implements WebMvcConfigurer {
     }
 
     @Bean
-    public DataSource dataSource(){     //бин для описания параметров подключени бд | лучше через внешний файл конфиг
+    //бин для описания параметров подключени бд | лучше через внешний файл конфиг
+    public DataSource dataSource(){
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(Objects.requireNonNull(environment.getProperty("hibernate.driver_class")));
         dataSource.setUrl(environment.getProperty("hibernate.connection.url"));
